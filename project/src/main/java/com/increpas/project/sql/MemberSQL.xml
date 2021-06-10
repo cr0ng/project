@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mSQL">
+
+	<!-- 로그인 처리 -->
+	<select id="login" resultType="int" parameterType="mVO">
+		SELECT
+		    count(*) 
+		FROM
+		    member
+		WHERE
+		    isShow='Y'
+		    AND user_id = #{user_id}
+		    AND user_pw = #{user_pw}
+	</select>
+	
+	<!-- 회원가입 처리 -->
+	
+	<!-- 아이디 찾기 처리 -->
+	<select id="findID" resultType="string" parameterType="mVO">
+		SELECT
+			user_id
+		FROM
+			member
+		WHERE
+			user_name = #{user_name}
+			AND email = #{email}
+			AND isShow = 'Y'
+	</select>
+	
+	<!-- 이메일 조회  -->
+	<select id="emailCK" resultType="int" parameterType="string">
+		SELECT
+			COUNT(*)
+		FROM
+			member
+		WHERE
+			email=#{email}
+	</select>
+	
+	<!-- 비밀번호 업데이트 처리 -->
+	<update id="updatePW" parameterType="mVO">
+		UPDATE
+			member
+		SET
+			user_pw = #{user_pw}
+		WHERE
+			user_id = #{user_id}
+			AND email = #{email}
+	</update>
+</mapper>
