@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="moSQL">
+	
+	<!-- 총 영화리스트 수 조희질의명령 -->
+	<select id="totalCnt" resultType="int">
+		SELECT
+			count(*) cnt
+		FROM
+			movie
+		
+	</select>
+	
+	<!-- 영화 리스트 조회질의명령 -->
+	<select id="movieList" resultType="moVO" parameterType="page">
+		SELECT
+			rno, mno, posno, title
+		FROM
+			(
+				SELECT
+					ROWNUM rno, mno, title, posno
+				FROM
+					(
+						SELECT
+							mno, title, posno
+						FROM
+							movie m, poster p
+						WHERE
+							mno = mnum
+					)
+			)
+		WHERE
+			rno BETWEEN #{startCont} AND #{endCont}
+	</select>
+	
+	<!-- 영화 상세보기 질의명령 -->
+	<select id="movieDetail" resultType="moVO" parameterType="int">
+		SELECT
+			mno, posno, title, year, hour, director, actor1, actor2, actor3, genre, plot, age_grade
+		FROM
+			movie, poster
+		WHERE
+			mno = mnum
+			AND mno = #{mno}
+	</select>
+	
+	<!-- 장르 속 영화 총 개수 -->
+	<select id="gtotalCnt" resultType="int" parameterType="int">
+		SELECT
+		    count(*)
+		FROM
+		    genmovie
+		WHERE
+			gnum = #{gnum}
+	</select>
+	
+	<!-- 장르 리스트 조회질의명령 -->
+	<select id="genreList" resultType="moVO">
+		SELECT
+		    gno, name, cnt
+		FROM
+		    genre,
+		    (
+		        SELECT
+		            gnum, count(*) cnt
+		        FROM
+		            genmovie
+		        GROUP BY
+		            gnum
+		    )
+		WHERE
+		    gno = gnum
+	</select>
+	
+	<!--  장르별 영화정보 제목과 번호 보기 질의명령 -->
+	<select id="genreMovieInfo" resultType="moVO" parameterType="int">
+		SELECT 
+		    mno, title
+		FROM
+		    genmovie, movie
+		WHERE
+		    mnum = mno
+		    AND gnum = #{gnum}
+	</select>
+	
+	<!-- 장르별 총개수 조회 질의명령 -->
+	<select id="genreMovieTotal" resultType="int" parameterType="int">
+		SELECT
+		    count(*)
+		FROM
+		    genmovie
+		WHERE
+		    gnum = #{gnum}
+	</select>
+
+	<!--  장르별 영화상세정보 보기질의명령 -->
+	<select id="genreMovieDetail" resultType="moVO" parameterType="moVO">
+		SELECT
+		    title, mno, savename, dir, #{gnum} gno
+		FROM
+		    (
+		        SELECT
+		            ROWNUM rno, title, mno, savename, dir
+		        FROM
+		            (
+		                SELECT
+		                    title, mno, savename, dir
+		                FROM
+		                    genmovie g, movie m, poster p
+		                WHERE
+		                    g.mnum = m.mno
+		                    AND m.mno = p.mnum
+		                    AND gnum = #{gnum}
+		            )
+		    )
+		WHERE
+		    rno BETWEEN #{startCont} AND #{endCont}
+	</select>
+	
+	<!-- 회원번호에 따른 찜한 영화 보기질의명령 -->
+	<select id="heartMovieNUM" resultType="int" parameterType="int">
+		SELECT
+		    movie_num mono
+		FROM
+		    heart
+		WHERE
+		    member_num = 100001
+	</select>
+	
+	<!-- 회원아이디에 따른 찜한 영화 보기질의명령 -->
+	<select id="heartMovieID" resultType="int" parameterType="moVO">
+		SELECT
+		    movie_num mno
+		FROM
+		    heart 
+		WHERE
+		    member_num = (
+		                    SELECT
+		                        user_no
+		                    FROM
+		                        member
+		                    WHERE
+		                        user_id = #{user_id}
+		                )
+	</select>
+	<select id="allList" resultType="moVO">
+		SELECT
+		    one_no, user_no, content, mno, title, write_date
+		FROM
+		    one_comment, member, movie
+		WHERE
+		    member_num = user_no
+		    AND movie_num = mno
+		ORDER BY
+		    write_date DESC
+	</select>
+	
+	
+	<!-- 작성글 수 조회 질의명령 -->
+	<select id="getReviewCount" resultType="int" parameterType="string">
+		SELECT
+		    count(*)
+		FROM
+		    one_comment
+		WHERE
+		    member_num = (
+		                    SELECT
+		                        user_no
+		                    FROM
+		                        member
+		                    WHERE
+		                        user_id = #{user_id}
+		                )
+	</select>
+	
+	<!-- 작성자 정보 조회 질의명령 -->
+	<select id="writerInfo" resultType="moVO" parameterType="string">
+		SELECT
+		    user_no, user_id, nickname, gender
+		FROM
+		    member
+		WHERE
+		    user_id = #{user_id}
+	</select>
+	
+	<!-- 리뷰 리스트 조회질의명령 -->
+	<select id="reviewList" resultType="moVO" parameterType="page">
+		SELECT
+		    rno, one_no, content, write_date, movie_num, member_num
+		FROM
+		    (
+		        SELECT
+		            ROWNUM rno, one_no, content, write_date, movie_num, member_num
+		        FROM
+		            movie, member, one_comment
+		        WHERE
+		            mno = movie_num
+		            AND user_no = member_num
+		    )   
+		WHERE
+		    rno BETWEEN #{startCont} AND #{endCont}
+	</select>
+	
+	<!-- 영화에 따른 리뷰 조회 질의명령 -->
+	<select id="reviewMOList" resultType="moVO" parameterType="int">
+		SELECT
+		    one_no, content, member_num, movie_num, write_date
+		FROM
+		    one_comment, movie
+		WHERE
+		    movie_num = mno
+		    AND movie_num = #{mno}
+	</select>
+	
+	<!-- 리뷰 등록 질의명령 -->
+	<insert id="addReview" parameterType="moVO">
+		<selectKey keyProperty="one_no" resultType="int" order="BEFORE">
+			SELECT
+			    NVL(MAX(one_no) + 1, 100001)
+			FROM
+			    one_comment
+		</selectKey>
+		INSERT INTO
+		    one_comment(one_no, content, member_num, movie_num)
+		VALUES(
+		    #{one_no}, #{content}, 
+		    (
+		        SELECT
+		            user_no
+		        FROM
+		            member
+		        WHERE   
+		            user_id = #{user_id}
+		    ),
+		    #{mno}
+		)
+	</insert>
+	
+	<!-- 리뷰 수정 데이터 조회 질의명령 -->
+	<select id="editReview" resultType="moVO" parameterType="string">
+		SELECT
+		    one_no, content, movie_num, member_num
+		FROM
+		    one_comment
+		WHERE
+		    member_num = (
+		                        SELECT
+		                            user_no
+		                        FROM
+		                            member
+		                        WHERE
+		                            user_id = #{user_id}
+		                    )
+	</select>
+	
+	<!-- 리뷰 수정 처리 질의명령 -->
+	<update id="editProc" parameterType="moVO">
+		UPDATE
+		    one_comment
+		<set>
+				content = #{content}
+		</set>
+		WHERE
+		    member_num = (
+		                    SELECT
+		                        user_no
+		                    FROM
+		                        member
+		                    WHERE
+		                        user_id = #{user_id}
+		                 )
+	</update>
+</mapper>
