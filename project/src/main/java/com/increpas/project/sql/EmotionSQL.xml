@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="eSQL">
+
+	<!-- 선택한 감정에서 선택수가 높은 영화 4개 보여주기  -->
+	<select id="recoMovie" resultType="eVO" parameterType="eVO">
+		SELECT
+		     rnum, emno, title, savename
+		FROM 
+		    (
+		        SELECT
+		           ROWNUM rnum, emno
+		        FROM
+		            (  
+		            	SELECT
+		                   ROWNUM rnum, emno
+		                FROM
+		                    emotion
+		                ORDER BY
+	                    <if test="emo eq 1">
+	                    	happy DESC
+	                	</if>
+	                	<if test="emo eq 2">
+	                    	angry DESC
+	                	</if>
+	                	<if test="emo eq 3">
+	                    	depressed DESC
+	                	</if>
+	                	<if test="emo eq 4">
+	                    	excited DESC
+	                	</if>
+		      		)
+		    ), movie, poster
+		WHERE
+		    emno = mno
+		    AND mno = posno
+		    AND rnum BETWEEN 1 AND 4    
+		ORDER BY
+		    rnum
+	</select>
+</mapper>
