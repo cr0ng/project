@@ -55,7 +55,7 @@ public class Member {
 	@RequestMapping("/loginProc.proj")
 	public ModelAndView loginProc(MemberVO mVO, ModelAndView mv, HttpSession session, RedirectView rv) {
 
-		String view ="/project/main.proj";
+		String view ="/project/movie/emotion.proj";
 	
 			if(!isLogin(session)) {
 			int cnt = mDao.getLogin(mVO);

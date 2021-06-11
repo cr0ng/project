@@ -124,7 +124,7 @@
 		  $('.recoModal').hide();
 		$('.emo').click(function(){
 			var tid = $(this).attr('id');
-			alert(tid);
+			//alert(tid);
 			$.ajax({
 				url : "/project/movie/emoSelect.proj",
 				type : "POST",
