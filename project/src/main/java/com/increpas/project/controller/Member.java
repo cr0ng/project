@@ -39,7 +39,7 @@ public class Member {
 	public ModelAndView Login(ModelAndView mv, RedirectView rv, HttpSession session) {
 		 
 		if(isLogin(session)) {
-			rv.setUrl("/project/movie/emotion.proj");
+			rv.setUrl("/project/main.proj");
 			mv.setView(rv);
 		} else {
 		 

@@ -38,7 +38,7 @@
 		  background-color: white;
  		  color: black;
   		  border: 2px solid #E6E6FA;
-  		  width: 33%;
+  		  width: 250px;
   		  font-weight : bold;
   		  font-size : 15pt;
   		  color : grey;
@@ -223,7 +223,7 @@
 						</div>
 					</div>
 				</div>
-						<div class="w3-col w3-margin-top m6">
+						<div class="w3-col w3-margin-top w3-center">
 							<input type="button" class="button" id="lbtn" value="로그인하기">
 						</div>
 			</div>

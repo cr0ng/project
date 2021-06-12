@@ -87,11 +87,10 @@
             </div>
            	<div class="w3-padding w3-blue w3-round-xlarge w3-hover-white w3-center" id="lbtn">로그인</div>
             
-            <a href="findIDPW.proj" class="forget w3-half">ID/PW 찾기</a>
-            <a href="join.proj" class="forget w3-half ">회원가입</a>
+            <a href="findIDPW.proj" class="forget w3-half w3-center">ID/PW 찾기</a>
+            <a href="join.proj" class="forget w3-half w3-center">회원가입</a>
             
             <!-- 네이버 로그인 창으로 이동 -->
-            
 			<div id="naver_id_login" style="text-align:center;"><a href="${url}">
 			<img style=" margin-top: 10px;" width="223" src="/project/img/naver/btnW_완성형.png"/></a></div>	
 			 
