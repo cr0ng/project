@@ -83,7 +83,7 @@
 		
 	}
 
-	#poster {
+	.poster {
 		float: left;
 		width : 270px;
 		height : 380px;
@@ -101,27 +101,8 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		/* 
-		$('.emo').click(function(){
-			var tid = $(this).attr('id');
-			alert(tid);
-			$.ajax({
-				url : "/project/movie/emoSelect.proj",
-				type : "POST",
-				dataType: 'json',
-				data: {
-					emo : tid
-				},
-				success : function(data){
-					alert('data len : ' + data.length);
-				},
-				error: function(){
-					alert('##### fail #####');
-				}
-			});
-		});
-		 */
-		  $('.recoModal').hide();
+		
+		$('.recoModal').hide();
 		$('.emo').click(function(){
 			var tid = $(this).attr('id');
 			//alert(tid);
@@ -134,24 +115,34 @@
 				},
 				success : function(data){
 					$('.searchModal').hide();
-						//$('#content').append('<h1 id="mtitle">선택한 감정 : '+ tid +' </h1>');
 						
-						switch($.trim(tid)){
-						case '1': $('#content').append('<h1 id="mtitle">선택한 감정 : happy </h1>');
-						break;
-						case '2': $('#content').append('<h1 id="mtitle">선택한 감정 : angry </h1>');
-						break;	
-						case '3': $('#content').append('<h1 id="mtitle">선택한 감정 : depressed </h1>');
-						break;	
-						case '4': $('#content').append('<h1 id="mtitle">선택한 감정 : excited </h1>');
-						break;	
-						}
+					switch($.trim(tid)){
+					case '1': $('#content').append('<h1 id="mtitle">선택한 감정 : happy </h1>');
+					break;
+					case '2': $('#content').append('<h1 id="mtitle">선택한 감정 : angry </h1>');
+					break;	
+					case '3': $('#content').append('<h1 id="mtitle">선택한 감정 : depressed </h1>');
+					break;	
+					case '4': $('#content').append('<h1 id="mtitle">선택한 감정 : excited </h1>');
+					break;	
+					}
+						
+				    for(i = 0; i<data.length; i++){
+				    	$('#cont').append('<div class="pdiv"><img class="poster" src="/project/assets/img/poster/' + data[i].savename +'" id="' + data[i].emno +'"><h2 id="title">' + data[i].title + '</h2></div>');
+					 };	
+					 
+					 $(document).on("click",".poster",function(){
+							var mno = $(this).attr('id');
+							var emo = $.trim(tid);
 							
-					    for(i = 0; i<data.length; i++){
-				     	$('#cont').append('<div class="pdiv"><img src="/project/assets/img/poster/' + data[i].savename +'" id="poster"><h2 id=title>' + data[i].title + '</h2></div>');
-					 };
-					$('.recoModal').fadeIn(300);
-				},
+							$('#emo').val(emo);
+							$('#mno').val(mno);
+							$('#frm').attr('action', '/project/movie/SelectDetail.proj');
+							$('#frm').submit();
+						});
+							 
+						$('.recoModal').fadeIn(300);
+					},
 				error: function(){
 					alert('##### fail #####');
 				}
@@ -161,6 +152,8 @@
 		$('.modalCloseBtn').click(function(){
 			$(location).attr('href', '/project/main.proj');
 		})
+		
+		
 	});
 	
 	
@@ -168,6 +161,14 @@
 </script>
 </head>
 <body>
+
+<form method="POST" action="/project/movie/movieList.proj"  id="frm" name="frm">
+		<input type="hidden" name="emo" id="emo" value="0"> <!-- 글번호 전송용태그 -->
+		<input type="hidden" name="mno" id="mno" value="0"> <!-- 글번호 전송용태그 -->
+		<input type="hidden" name="gno" id="gno" value="0"> <!-- 글번호 전송용태그 -->
+		<input type="hidden" name="gnum" id="gnum" value="0"> <!-- 글번호 전송용태그 -->
+</form>
+
   <!-- ? Preloader Start -->
     <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
@@ -213,7 +214,6 @@
 											<div id="content">
 												
 											</div>
-											<form class="form-default" action="#" method="POST" name="frm" id="frm">
 											<div id ="rdiv">
 								                <div id="cont">
 								                </div>
@@ -222,7 +222,6 @@
 								                </div>         
 								                      
 											</div>
-											</form>
 										</div>
 									</div>
                                 </div>

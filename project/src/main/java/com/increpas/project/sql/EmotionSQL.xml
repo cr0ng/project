@@ -6,42 +6,100 @@
 
 <mapper namespace="eSQL">
 
-	<!-- 선택한 감정에서 선택수가 높은 영화 4개 보여주기  -->
-	<select id="recoMovie" resultType="eVO" parameterType="eVO">
+	<!-- 선택한 감정의 상위 영화 20개 중 랜덤 4개 보여주기  -->
+	<select id="recoMovie" resultType="eVO" parameterType="eVO"> 
 		SELECT
-		     rnum, emno, title, savename
-		FROM 
-		    (
-		        SELECT
-		           ROWNUM rnum, emno
-		        FROM
-		            (  
-		            	SELECT
-		                   ROWNUM rnum, emno
-		                FROM
-		                    emotion
-		                ORDER BY
-	                    <if test="emo eq 1">
-	                    	happy DESC
-	                	</if>
-	                	<if test="emo eq 2">
-	                    	angry DESC
-	                	</if>
-	                	<if test="emo eq 3">
-	                    	depressed DESC
-	                	</if>
-	                	<if test="emo eq 4">
-	                    	excited DESC
-	                	</if>
-		      		)
-		    ), movie, poster
-		WHERE
-		    emno = mno
-		    AND mno = posno
-		    AND rnum BETWEEN 1 AND 4    
-		ORDER BY
-		    rnum
+    emno, title, savename
+FROM
+    (
+        SELECT 
+            emno, title, savename
+        FROM
+                    (
+                        SELECT 
+                            rnum, emno, title, savename
+                        FROM 
+                            (
+                                SELECT
+                                    rnum, emno, title, savename
+                                FROM 
+                                    (
+                                        SELECT
+                                           ROWNUM rnum, emno
+                                        FROM
+                                            (  
+                                                SELECT
+                                                   emno
+                                                FROM
+                                                    emotion
+                                                ORDER BY
+                                                     <if test="emo eq 1">
+								                    	happy DESC
+								                	</if>
+								                	<if test="emo eq 2">
+								                    	angry DESC
+								                	</if>
+								                	<if test="emo eq 3">
+								                    	depressed DESC
+								                	</if>
+								                	<if test="emo eq 4">
+								                    	excited DESC
+								                	</if>
+                                             )
+                                    ), movie m, poster
+                                WHERE
+                                    emno = mno
+                                    AND mno = posno
+                                    AND rnum BETWEEN 1 AND 20    
+                                ORDER BY
+                                    rnum
+                            )
+                    )
+        ORDER BY DBMS_RANDOM.RANDOM()
+    )
+WHERE ROWNUM BETWEEN 1 AND 4
 	</select>
-
+	
+	<!-- 로그인한 유저의 선택한 감정 카운트 + 1 -->
+	<update id="memberEmoCnt" parameterType="eVO">
+		UPDATE 
+			member 
+		SET
+			 <if test="emo eq 1">
+                happy = happy + 1 
+           	</if>
+           	<if test="emo eq 2">
+               	angry = angry + 1 
+           	</if>
+           	<if test="emo eq 3">
+               	depressed = depressed + 1 
+           	</if>
+           	<if test="emo eq 4">
+               	excited = excited + 1 
+           	</if>
+		WHERE 
+			user_id = #{user_id}
+	</update>
+	
+	<!-- 선택한 영화 감정 카운트 + 1 -->
+	<update id="movieEmoCnt" parameterType="eVO">
+		UPDATE 
+			emotion 
+		SET
+			 <if test="emo eq 1">
+                happy = happy + 1 
+           	</if>
+           	<if test="emo eq 2">
+               	angry = angry + 1 
+           	</if>
+           	<if test="emo eq 3">
+               	depressed = depressed + 1 
+           	</if>
+           	<if test="emo eq 4">
+               	excited = excited + 1 
+           	</if>
+		WHERE 
+			emno = #{emno}
+	</update>
 	
 </mapper>

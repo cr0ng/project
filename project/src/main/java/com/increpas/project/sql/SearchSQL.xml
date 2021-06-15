@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sSQL">
+
+	<!-- 검색어 결과받기 처리 -->
+	<select id="search" resultType="sVO" parameterType="String">
+		SELECT  
+		    rno, mno, posno, title
+		FROM
+		    (
+		        SELECT
+		            ROWNUM rno, mno, title, posno
+		        FROM
+		            (
+		                SELECT
+		                    mno, title, posno
+		                FROM
+		                    movie m, poster p
+		                WHERE
+		                    title LIKE #{word}
+		                    AND mno = mnum
+		            )
+		)
+	</select>
+	 
+	
+</mapper>

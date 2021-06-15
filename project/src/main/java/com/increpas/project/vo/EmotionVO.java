@@ -2,7 +2,7 @@ package com.increpas.project.vo;
 
 public class EmotionVO {
 	private int emno, happy, angry, depressed, excited;
-	private int mno, posno, emo;
+	private int /* mno, posno, */emo;
 	private String title, savename, user_id;
 	public int getEmno() {
 		return emno;
@@ -34,6 +34,7 @@ public class EmotionVO {
 	public void setExcited(int excited) {
 		this.excited = excited;
 	}
+	/*
 	public int getMno() {
 		return mno;
 	}
@@ -46,6 +47,7 @@ public class EmotionVO {
 	public void setPosno(int posno) {
 		this.posno = posno;
 	}
+	*/
 	public String getTitle() {
 		return title;
 	}
@@ -73,8 +75,8 @@ public class EmotionVO {
 	@Override
 	public String toString() {
 		return "emno=" + emno + ", happy=" + happy + ", angry=" + angry + ", depressed=" + depressed
-				+ ", excited=" + excited + ", mno=" + mno + ", posno=" + posno + ", title=" + title + ", savename="
-				+ savename ;
+				+ ", excited=" + excited+ ", title=" + title + ", savename="
+				+ savename +", user_id=" + user_id + ", emo=" + emo ;
 	}
 	
 	

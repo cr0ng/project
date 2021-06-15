@@ -108,13 +108,7 @@ public class Member {
 	@RequestMapping("/findIDProc.proj")
 	public ModelAndView findIDProc(MemberVO mVO, ModelAndView mv, HttpSession session, RedirectView rv) {
 		
-		//String view ="/project/member/findID.proj";
-		
-		//System.out.println("이름 :" + mVO.getUser_name());
-		//System.out.println("이메일 :" + mVO.getEmail());
-		
 		String id = mDao.findID(mVO);
-		//System.out.println("id : " + id);
 		
 		mv.addObject("ID", id);
 		
@@ -136,11 +130,7 @@ public class Member {
 	@RequestMapping("/updatePWProc.proj")
 	public ModelAndView updatePWProc(MemberVO mVO, ModelAndView mv, HttpSession session, RedirectView rv) {
 		
-		//System.out.println("아이디 :" + mVO.getUser_id());
-		//System.out.println("이메일 :" + mVO.getEmail());
-		
 		int cnt = mDao.emailCK(mVO.getEmail());
-		//System.out.println(cnt);
 		
 		mv.addObject("CNT",cnt);
 		if(cnt == 1) {
@@ -156,22 +146,4 @@ public class Member {
 		
 	}
 	
-	
-	// 마이페이지 페이지
-	@RequestMapping(value="/myPage.proj")
-	public String myPage() {
-		return "member/myPage";
-	}
-	
-	// 마이페이지 편집 페이지
-	@RequestMapping(value="/editInfo.proj")
-	public String editInfo() {
-		return "member/editInfo";
-	}
-	
-	// 한줄평 페이지
-	@RequestMapping(value="/commentList.proj")
-	public String commentList() {
-		return "member/commentList";
-	}
 }

@@ -16,5 +16,13 @@ public class EmotionDao {
 		return sqlSession.selectList("eSQL.recoMovie", eVO);
 	}
 
+	// 감정 선택시 로그인한 유저의 감정 카운트 + 1
+	public int memberEmoCnt(EmotionVO eVO) {
+		return sqlSession.update("eSQL.memberEmoCnt",eVO);
+	}
 
+	// 감정 선택 후 선택한 영화 감정 카운트 + 1
+	public int movieEmoCnt(EmotionVO eVO) {
+		return sqlSession.update("eSQL.movieEmoCnt",eVO);
+	}
 }

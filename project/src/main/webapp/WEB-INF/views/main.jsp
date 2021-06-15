@@ -109,6 +109,7 @@
                                         <nav>
                                             <ul id="navigation">                                                                                          
                                                 <li><a href="/project/movie/movieList.proj">모든 영화</a></li>
+                                                <li><a href="#">공지사항</a></li>
                                             </ul>
                                         </nav>
                                     </div>
@@ -141,7 +142,7 @@
                 <div class="single-slider slider-height">
                     <div class="container">
                         <div class="row justify-content-center">
-				         <form class="form-default" action="/project/movie/searchList.proj" method="POST" id="frm" name="frm">
+				         <form class="form-default" action="/project/movie/searchProc.proj" method="POST" id="frm" name="frm">
                             <div class="col-xl-8 col-lg-11 col-md-12">
                                 <div class="hero__caption text-center" id="sdiv">
                                     <h1 data-animation="bounceIn" data-delay="0.2s">영화를 검색해보세요!</h1>
