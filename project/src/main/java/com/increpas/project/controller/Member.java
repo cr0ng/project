@@ -2,6 +2,8 @@ package com.increpas.project.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.increpas.project.dao.MemberDao;
+import com.increpas.project.service.LoginService;
 import com.increpas.project.service.MemberService;
 import com.increpas.project.vo.MemberVO;
 
@@ -27,6 +30,8 @@ public class Member {
 	MemberDao mDao;
 	@Autowired
 	MemberService mSrvc;
+	
+	private static final Logger logger = LoggerFactory.getLogger(Member.class);
 	
 	public boolean isLogin(HttpSession session) {
 		String sid = (String) session.getAttribute("SID");
@@ -55,12 +60,16 @@ public class Member {
 	@RequestMapping("/loginProc.proj")
 	public ModelAndView loginProc(MemberVO mVO, ModelAndView mv, HttpSession session, RedirectView rv) {
 
+		
 		String view ="/project/movie/emotion.proj";
 	
-			if(!isLogin(session)) {
+		if(!isLogin(session)) {
 			int cnt = mDao.getLogin(mVO);
+			mVO.setCnt(cnt);
+			
 			if(cnt == 1) {
 				session.setAttribute("SID", mVO.getUser_id());
+				logger.info("** " + mVO.getUser_id() + "님 로그인 **");
 			}else {
 				view = "/project/member/login.proj";
 			}
@@ -73,22 +82,16 @@ public class Member {
 	// 로그아웃 처리
 	@RequestMapping("/logout.proj")
 	public ModelAndView logout(HttpSession session, ModelAndView mv, RedirectView rv) {
+		logger.info("** 로그아웃 **");
 		session.removeAttribute("SID");
 		rv.setUrl("/project/member/login.proj");
 		mv.setView(rv);
 		return mv;
 	}
-		
-	
-	// 회원가입 페이지
-	@RequestMapping(value="/join.proj")
-	public String getJoin() {
-		return "member/join";
-	}
 	
 	// 아이디,비번찾기 페이지
 	@RequestMapping("/findIDPW.proj")
-	public ModelAndView findIDPW(ModelAndView mv,  RedirectView rv, HttpSession session) {
+	public ModelAndView findIDPW(ModelAndView mv) {
 		String view ="member/findIDPW";
 		
 		mv.setViewName(view);
@@ -97,7 +100,7 @@ public class Member {
 	
 	// 아이디 알려주는 페이지
 	@RequestMapping("/findID.proj")
-	public ModelAndView findID(ModelAndView mv,  RedirectView rv, HttpSession session) {
+	public ModelAndView findID(ModelAndView mv) {
 		String view ="member/findID";
 		
 		mv.setViewName(view);
@@ -106,7 +109,7 @@ public class Member {
 
 	// 아이디 찾기 처리
 	@RequestMapping("/findIDProc.proj")
-	public ModelAndView findIDProc(MemberVO mVO, ModelAndView mv, HttpSession session, RedirectView rv) {
+	public ModelAndView findIDProc(MemberVO mVO, ModelAndView mv) {
 		
 		String id = mDao.findID(mVO);
 		
@@ -118,7 +121,7 @@ public class Member {
 	
 	// 임시 비번 전송 알림 페이지
 	@RequestMapping("/findPW.proj")
-	public ModelAndView findPW(ModelAndView mv,  RedirectView rv, HttpSession session) {
+	public ModelAndView findPW(ModelAndView mv) {
 		String view ="member/findPW";
 
 		
@@ -128,7 +131,7 @@ public class Member {
 	
 	// 임시 비밀번호 업데이트 처리
 	@RequestMapping("/updatePWProc.proj")
-	public ModelAndView updatePWProc(MemberVO mVO, ModelAndView mv, HttpSession session, RedirectView rv) {
+	public ModelAndView updatePWProc(MemberVO mVO, ModelAndView mv) {
 		
 		int cnt = mDao.emailCK(mVO.getEmail());
 		
@@ -139,7 +142,6 @@ public class Member {
 			mVO.setUser_pw(pw);
 			mDao.updatePW(mVO);
 			
-			System.out.println("임시 비밀번호 : " + pw);
 		}
 		mv.setViewName("member/findPW");
 		return mv;

@@ -61,14 +61,13 @@ public class Emotion {
 		  int cnt = eDao.memberEmoCnt(eVO);
 		 
 		  ArrayList<EmotionVO> list = (ArrayList<EmotionVO>) eDao.recoMovie(eVO);
-			/* for(EmotionVO e : list){ System.out.println(e);} */
 		
 		  return list; 
 	  }
 	  
 	  // 추천 영화 선택 시 영화 감정 카운트 업데이트, 영화 상세보기
 	  @RequestMapping("/SelectDetail.proj")
-		public ModelAndView movieDetail(EmotionVO eVO, MovieVO moVO, ModelAndView mv, RedirectView rv) {
+		public ModelAndView movieDetail(EmotionVO eVO, MovieVO moVO, ModelAndView mv) {
 			
 		  int emo = eVO.getEmo(); 
 		  

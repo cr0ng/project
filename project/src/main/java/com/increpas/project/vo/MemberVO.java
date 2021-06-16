@@ -1,10 +1,17 @@
 package com.increpas.project.vo;
 
 public class MemberVO {
-	private int user_no,age;
+	private int user_no, age, cnt;
 	private String user_id, user_pw, nickname, gender, email, user_name;
 	public int getUser_no() {
 		return user_no;
+	}
+	
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
 	}
 	public void setUser_no(int user_no) {
 		this.user_no = user_no;

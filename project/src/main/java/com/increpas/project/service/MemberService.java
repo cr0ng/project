@@ -32,7 +32,6 @@ public class MemberService {
 			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
 			msg += "<h3 style='color: blue;'>ITCHA 임시 비밀번호 입니다. 로그인 후 비밀번호를 변경하세요</h3>";
 			msg += "<p>임시 비밀번호 : ";
-			//msg += mVO.getUser_pw() + "</p></div>";
 			msg += pw + "</p></div>";
 			
 			

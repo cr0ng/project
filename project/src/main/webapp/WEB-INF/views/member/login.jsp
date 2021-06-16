@@ -91,8 +91,10 @@
             <a href="join.proj" class="forget w3-half w3-center">회원가입</a>
             
             <!-- 네이버 로그인 창으로 이동 -->
+            <!-- 
 			<div id="naver_id_login" style="text-align:center;"><a href="${url}">
 			<img style=" margin-top: 10px;" width="223" src="/project/img/naver/btnW_완성형.png"/></a></div>	
+             -->
 			 
 			 
         </div>
