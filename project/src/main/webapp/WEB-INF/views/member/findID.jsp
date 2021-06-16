@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title> itcha</title>
+    <title>ITCHA</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
    <!--  <link rel="manifest" href="site.webmanifest"> -->
@@ -68,7 +68,7 @@
 </head>
 
 <body>
- <!-- ? Preloader Start -->
+    <!-- ? Preloader Start -->
     <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
             <div class="preloader-inner position-relative">
@@ -80,7 +80,6 @@
         </div>
     </div>
     <!-- Preloader Start -->
-   
     <div id="modal" class="searchModal">
 		<div class="search-modal-content">
 			<div class="page-header">

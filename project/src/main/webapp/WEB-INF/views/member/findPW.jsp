@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title> itcha</title>
+    <title>ITCHA</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
    <!--  <link rel="manifest" href="site.webmanifest"> -->
@@ -63,27 +63,11 @@
 	$('.searchModal').hide();
 		$(location).attr('href','/project/member/findIDPW.proj');
 	}; 
-	
-	/* 
-	$(document).ready(function(){
-		$("#modal").show();
-		
-		$('#lbtn').click(function(){
-			$('.searchModal').hide();
-			$(location).attr('href','/project/member/login.proj');
-		});
-		
-		$('#cbtn').click(function(){
-			$('.searchModal').hide();
-			$(location).attr('href','/project/member/findIDPW.proj');
-		});
-	});
- */
 	</script>
 </head>
 
 <body>
- <!-- ? Preloader Start -->
+    <!-- ? Preloader Start -->
     <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
             <div class="preloader-inner position-relative">
@@ -95,7 +79,6 @@
         </div>
     </div>
     <!-- Preloader Start -->
-   
     <div id="modal" class="searchModal">
 		<div class="search-modal-content">
 			<div class="page-header">
@@ -118,13 +101,7 @@
 			</div>
 			<div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;" onClick="closeModal();">
 				<span class="pop_bt modalCloseBtn" id="cbtn" style="font-size: 13pt;">닫기</span>
-		<%-- 
-		<c:if test="${empty PW}">	
-		</c:if>
-		<c:if test="${not empty PW}">	
-				<span class="pop_bt modalLoginBtn" id="lbtn" style="font-size: 13pt;">로그인</span>
-		</c:if>
-		 --%>
+		
 			</div>
 		</div>
 	</div>

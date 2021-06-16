@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title> ITCHA | modal</title>
+    <title>ITCHA</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <link rel="manifest" href="site.webmanifest"> -->
@@ -169,19 +169,6 @@
 		<input type="hidden" name="gnum" id="gnum" value="0"> <!-- 글번호 전송용태그 -->
 </form>
 
-  <!-- ? Preloader Start -->
-    <div id="preloader-active">
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="/project/assets/img/logo/loder.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Preloader Start -->
-   
     <main>
         <!--? slider Area Start-->
         <section class="slider-area ">
@@ -241,7 +228,7 @@
                     <div class="row d-flex align-items-center">
                         <div class="col-xl-12 ">
                             <div class="footer-copy-right text-center">
-                                <p>3조 곽채원 김유진 최태현 윤건우 신현식</p>
+                                <p>3조 곽채원 김유진 최태현 윤건우</p>
                               </div>
                           </div>
                       </div>

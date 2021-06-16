@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +36,8 @@ public class Emotion {
 	@Autowired
 	MovieDao moDao;
 
+	private static final Logger logger = LoggerFactory.getLogger(Emotion.class);
+	
 	// 감정 선택 페이지
 		@RequestMapping("/emotion.proj")
 		public ModelAndView emotion(ModelAndView mv, HttpSession session, RedirectView rv) {
@@ -59,7 +63,18 @@ public class Emotion {
 		  eVO.setUser_id(sid);
 		  // 로그인 한 유저의 감정 카운트 업데이트
 		  int cnt = eDao.memberEmoCnt(eVO);
-		 
+		  if(cnt == 1) {
+			 switch(emo) {
+			 case 1: logger.info("## " + eVO.getUser_id() +"님이 happy 감정 선택 ##" );
+			 break;
+			 case 2: logger.info("## " + eVO.getUser_id() +"님이 angry 감정 선택 ##" );
+			 break;
+			 case 3: logger.info("## " + eVO.getUser_id() +"님이 depressed 감정 선택 ##" );
+			 break;
+			 case 4: logger.info("## " + eVO.getUser_id() +"님이 excited 감정 선택 ##" );
+			 break;
+			 }
+		  }
 		  ArrayList<EmotionVO> list = (ArrayList<EmotionVO>) eDao.recoMovie(eVO);
 		
 		  return list; 
@@ -76,6 +91,7 @@ public class Emotion {
 		  
 		  int cnt = eDao.movieEmoCnt(eVO);
 		  if(cnt == 1) {
+		
 			MovieVO data = moDao.movieDetail(moVO.getMno());
 			List rlist = moDao.getReviewList(moVO.getMno());
 			List list = moDao.genreMovieDetail(moVO);

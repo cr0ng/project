@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.increpas.project.dao.MemberDao;
-import com.increpas.project.service.LoginService;
 import com.increpas.project.service.MemberService;
 import com.increpas.project.vo.MemberVO;
 
@@ -71,6 +70,7 @@ public class Member {
 				session.setAttribute("SID", mVO.getUser_id());
 				logger.info("** " + mVO.getUser_id() + "님 로그인 **");
 			}else {
+				logger.info("** 로그인 실패 **");
 				view = "/project/member/login.proj";
 			}
 		}
@@ -92,7 +92,7 @@ public class Member {
 	// 아이디,비번찾기 페이지
 	@RequestMapping("/findIDPW.proj")
 	public ModelAndView findIDPW(ModelAndView mv) {
-		String view ="member/findIDPW";
+		String view ="/member/findIDPW";
 		
 		mv.setViewName(view);
 		return mv;

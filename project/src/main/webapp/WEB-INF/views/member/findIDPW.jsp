@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title> itcha</title>
+    <title>ITCHA</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
    <!--  <link rel="manifest" href="site.webmanifest"> -->
@@ -42,6 +42,10 @@
   		  font-weight : bold;
   		  font-size : 15pt;
   		  color : grey;
+		}
+		
+		#lbtn{
+			margin-top:40px;
 		}
 		
 		.button:hover {
@@ -85,21 +89,6 @@
 			
 			$('#frm2').submit(); 
 			
-			
-			/*
-			$.ajax({
-					url : "/member/findPW",
-					type : "POST",
-					data : {
-							sid : $('#id').val(),
-							smail : $('#mail').val()
-					},
-					success : function(result){
-						alert(result);
-					},
-			})
-			*/
-			
 		});
 		
 		$('#lbtn').click(function(){
@@ -111,18 +100,6 @@
 </head>
 
 <body>
- <!-- ? Preloader Start -->
-    <div id="preloader-active">
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="/project/assets/img/logo/loder.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Preloader Start -->
     <header>
         <!-- Header Start -->
         <div class="header-area header-transparent">
@@ -133,29 +110,8 @@
                             <!-- Logo -->
                             <div class="col-xl-2 col-lg-2">
                                 <div class="logo">
-                                    <a href="main.project">itcha</a>
+                                    <a href="/project/member/login.proj">itcha</a>
                                 </div>
-                            </div>
-                            <div class="col-xl-10 col-lg-10">
-                                <div class="menu-wrapper  d-flex align-items-center justify-content-end">
-                                    <!-- Main-menu -->
-                                    <div class="main-menu d-none d-lg-block">
-                                        <nav>
-                                            <ul id="navigation">                                                                                          
-                                                <li><a href="movielist.project">모든 영화</a></li>
-                                                <li><a href="main.project">검색</a></li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                    <!-- Header-btn -->
-                                    <div class="header-right-btn d-none d-lg-block ml-65">
-                                        <a href="myPage.project" class="border-btn">마이페이지</a>
-                                    </div>
-                                </div>
-                            </div> 
-                            <!-- Mobile Menu -->
-                            <div class="col-12">
-                                <div class="mobile_menu d-block d-lg-none"></div>
                             </div>
                         </div>
                     </div>
@@ -245,7 +201,7 @@
                     <div class="row d-flex align-items-center">
                         <div class="col-xl-12 ">
                             <div class="footer-copy-right text-center">
-                                <p>3조 곽채원 김유진 최태현 윤건우 신현식</p>
+                                <p>3조 곽채원 김유진 최태현 윤건우</p>
                               </div>
                           </div>
                       </div>

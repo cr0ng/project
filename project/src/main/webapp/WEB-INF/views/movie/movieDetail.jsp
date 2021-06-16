@@ -354,7 +354,7 @@
 										</div>
 									</div>
 									<div class="media post_item">
-										<img src="assets/img/post/post_2.png" alt="post">
+										<img src="/project/assets/img/post/post_2.png" alt="post">
 										<div class="media-body">
 											<a href="blog_details.jsp">
 												<h3 style="color: #2d2d2d;">The Amazing Hubble</h3>

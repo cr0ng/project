@@ -29,11 +29,6 @@
 	<link rel="stylesheet" href="/project/assets/css/style.css">
 	<script type="text/javascript" src="/project/assets/js/jquery-3.6.0.min.js"></script>
 	
-	<style>
-		
-		
-	</style>
-	
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$('#lbtn').click(function(){
@@ -53,19 +48,6 @@
 	</script>
 </head>
 <body>
-<!-- ? Preloader Start -->
-    <div id="preloader-active">
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="/project/assets/img/logo/loder.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Preloader Start-->
-
 
 <main class="login-body" data-vide-bg="/project/assets/img/login-bg.mp4">
     <!-- Login Admin -->
@@ -89,13 +71,6 @@
             
             <a href="findIDPW.proj" class="forget w3-half w3-center">ID/PW 찾기</a>
             <a href="join.proj" class="forget w3-half w3-center">회원가입</a>
-            
-            <!-- 네이버 로그인 창으로 이동 -->
-            <!-- 
-			<div id="naver_id_login" style="text-align:center;"><a href="${url}">
-			<img style=" margin-top: 10px;" width="223" src="/project/img/naver/btnW_완성형.png"/></a></div>	
-             -->
-			 
 			 
         </div>
     </form>
