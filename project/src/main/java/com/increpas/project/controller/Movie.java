@@ -49,7 +49,6 @@ public class Movie {
 		
 		int cnt = moDao.getReviewCnt(moVO.getMno());
 
-		
 		List hlist = moDao.getHeartList(moVO);
 		mv.addObject("HLIST", hlist);
 		List glist = moDao.genreList();
