@@ -1,5 +1,7 @@
 package com.increpas.project.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -7,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -16,10 +20,18 @@ import com.increpas.project.vo.MemberVO;
 
 /**
  * 
- * @author yujin
- * @since 2021.06.01
+ * @author 김유진, 윤건우
+ * @since 2021.06.01 ~ 02
  * @version v.1.0
+ * @see
+ *          작업이력 ]
+ *                2021/06/01   -   담당자      :   김유진
+ *                            작업내용   :   로그인, 로그아웃, 아이디/비밀번호 찾기
+ *
+ *                2021/06/02   -   담당자      :   윤건우
+ *                            작업내용   :   회원가입, 내정보 조회/수정
  */
+
 
 @Controller
 @RequestMapping("/member")
@@ -38,6 +50,7 @@ public class Member {
 		return (sid == null) ? false : true;
 	}
 	
+	//김유진
 	// 로그인 페이지
 	@RequestMapping("/login.proj")
 	public ModelAndView Login(ModelAndView mv, RedirectView rv, HttpSession session) {
@@ -148,4 +161,136 @@ public class Member {
 		
 	}
 	
+	
+	//윤건우
+	@RequestMapping("/join.proj")
+	   public ModelAndView join(ModelAndView mv, HttpSession session, RedirectView rv) {
+	      // 로그인 검사
+	      if(isLogin(session)) {
+	         rv.setUrl("/project/main.proj");
+	         mv.setView(rv);
+
+	         // 반환하고 함수 실행 종료
+	         return mv;
+	      }
+	      
+	      String view = "member/join";
+	      
+	      mv.setViewName(view);
+	      return mv;
+	   }
+	   
+	   @RequestMapping("/joinProc.proj")
+	   public ModelAndView joinProc(MemberVO mVO, ModelAndView mv, HttpSession session, RedirectView rv) {
+	      // 로그인 검사하고
+	      if(isLogin(session)) {
+	         rv.setUrl("/project/main.proj");
+	         mv.setView(rv);
+	         return mv;
+	      }
+	      
+	      int cnt = mDao.addMember(mVO);
+	      if(cnt == 1) {
+	         session.setAttribute("SID", mVO.getUser_id());
+	         rv.setUrl("/project/main.proj");
+	      } else {
+	         rv.setUrl("/project/member/join.proj");
+	      }
+	      mv.setView(rv);
+	      return mv;
+	      
+	      // 반환하고 함수 실행 종료하고
+	   }
+
+	   /*
+	       회원가입 아이디체크 요청 처리
+	    */
+	   @RequestMapping(value="/idCheck.proj", method=RequestMethod.POST, params="id")
+	   @ResponseBody
+	   public HashMap<String, String> idCheck(String id){
+	      int cnt = mDao.getIdCnt(id);
+	      
+	      HashMap<String, String> map = new HashMap<String, String>();
+	      map.put("reslt", "NO");
+	      map.put("id", id);
+	      if(cnt != 1) {
+	         map.put("result", "OK");
+	      }
+	      
+	      return map;
+	   }
+	   /*
+	       내 정보보기 요청 처리
+	    */
+	   @RequestMapping("/myPage.proj")
+	   public ModelAndView myPage(ModelAndView mv, HttpSession session, RedirectView rv) {
+	      // 할일
+	      // 로그인 검사
+	      if(isLogin(session)) {
+	         // 아이디 꺼내오고
+	         String sid = (String) session.getAttribute("SID");
+	         // 데이터베이스 작업하고
+	         MemberVO mVO = mDao.getMyPage(sid);
+	         // 만들어진 데이터 뷰에 보내고
+	         mv.addObject("DATA", mVO);
+	         // 뷰 정하고
+	         mv.setViewName("member/myPage");
+	      } else {
+	         // 로그인 안한경우 로그인페이지로 돌려보낸다
+	         rv.setUrl("member/login.proj");
+	         mv.setView(rv);
+	      }
+	      // 반환값 반환하고
+	      return mv;
+	   }
+	   
+	   /*
+	       정보 수정 요청 처리
+	    */
+	   @RequestMapping("/editInfo.proj")
+	   public ModelAndView eidtInfo(ModelAndView mv, HttpSession session, RedirectView rv) {
+	      // 로그인 검사하고
+	      if(!isLogin(session)) {
+	         rv.setUrl("/project/member/login.proj");
+	         mv.setView(rv);
+	         // 반환하고 함수 실행 종료하고
+	         return mv;
+	      }
+	      // 아이디 꺼내고
+	      String sid = (String)session.getAttribute("SID");
+	      // 데이터베이스 조회하고
+	      MemberVO mVO = mDao.getMyPage(sid);
+	      // 데이터베이스 뷰에 심고
+	      mv.addObject("DATA", mVO);
+	      // 뷰 부르고
+	      mv.setViewName("member/editInfo");
+	      // 데이터반환하고
+	      return mv;
+	   }
+	   
+	   /*
+	       내 정보 수정 처리 요청 처리함수
+	    */
+	   @RequestMapping("/editInfoProc.proj")
+	   public ModelAndView editInfoProc(MemberVO mVO, ModelAndView mv, HttpSession session, RedirectView rv) {
+	      
+	      // 로그인 검사하고
+	      if(!isLogin(session)) {
+	         rv.setUrl("/project/member/login.proj");
+	         mv.setView(rv);
+	         
+	         return mv;
+	      }
+	      
+	      int cnt = mDao.editInfo(mVO);
+	      String view = "/project/member/myPage.proj";
+	      if(cnt != 1) {
+	         view = "/project/member/editInfo.proj";
+	      }
+	      rv.setUrl(view);
+	      mv.setView(rv);
+	      // 반환하고 함수 실행 종료하고
+	      return mv;
+	   }
+
 }
