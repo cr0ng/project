@@ -57,4 +57,5 @@ public class NoticeDao {
 	public int hitCount(int notice_no) {
 		return sqlSession.update("nSQL.hitCount", notice_no);
 	}
+	
 }
