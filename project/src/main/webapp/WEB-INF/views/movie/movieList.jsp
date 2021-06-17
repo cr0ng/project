@@ -84,7 +84,7 @@ $(document).ready(function(){
 		var el = $(this);
 		var mno = $(this).attr('id').substring(1);
 		var scode = $(this).prev().val();
-		alert(scode);
+		//alert(scode);
 		$.ajax({
 			url: "/project/movie/addHeartProc.proj",
 			type: 'POST',
