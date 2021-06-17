@@ -8,7 +8,6 @@
     <title> App landing | Template</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-   <!--  <link rel="manifest" href="site.webmanifest"> -->
     <link rel="shortcut icon" type="image/x-icon" href="/project/assets/assets/img/favicon.ico">
 
     <!-- CSS here -->
@@ -96,10 +95,18 @@
                                     <div class="main-menu d-none d-lg-block">
                                         <nav>
                                             <ul id="navigation">                                                                                          
-                                                <li><a href="/project/features.proj">모든 영화</a></li>
+                                                <li><a href="/project/movielist.proj">모든 영화</a></li>
                                                 <li><a href="/project/main.proj">검색</a></li>
+                                                <li><a href="/project/survey/surveyList.proj">설문조사</a></li>
                                             </ul>
                                         </nav>
+                                    </div>
+                                    <!-- Header-btn -->
+                                      <div class="header-right-btn d-none d-lg-block ml-65">
+                                        <a href="/project/member/myPage.proj" class="border-btn" id="mbtn" >마이페이지</a>
+                                    </div>
+                                    <div class="header-right-btn d-none d-lg-block ml-65">
+                                        <div class="border-btn" id="outbtn" >로그아웃</div>
                                     </div>
                                 </div>
                             </div> 
