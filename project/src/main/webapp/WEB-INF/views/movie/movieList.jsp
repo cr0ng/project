@@ -79,7 +79,6 @@ $(document).ready(function(){
 		$(location).attr('href','/project/member/logout.proj');
 	});
 	
-
 	$('.fa-heart').click(function(){
 		var el = $(this);
 		var mno = $(this).attr('id').substring(1);
