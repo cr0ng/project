@@ -15,7 +15,6 @@ public class ProjMain {
 	// 메인(검색) 페이지
 	@RequestMapping("/main.proj")
 	public ModelAndView getMain(ModelAndView mv) {
-		
 		mv.setViewName("main");
 		return mv;
 	}
