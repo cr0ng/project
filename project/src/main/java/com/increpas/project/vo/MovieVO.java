@@ -8,18 +8,68 @@ public class MovieVO {
 	
 	private int mno, year, hour, platform1, platform2, platform3, rating, posno, gmno, gnum, 
 				mnum, gno, startCont, endCont, hno, movie_num, member_num, one_no,
-				cnt, user_no;
+				cnt, user_no, onecnt, pno, platform_num;
+
 	private String title, director, actor1, actor2, actor3, genre, plot, music, url, 
-					age_grade, savename, dir, name, user_id, content;
+					age_grade, savename, dir, name, user_id, content, singer, osturl, showcode, show, result;
+
 	private Date write_date;
+
 	
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
+	}
+	public String getShow() {
+		return show;
+	}
+	public void setShow(String show) {
+		this.show = show;
+	}
+	public String getShowcode() {
+		return showcode;
+	}
+	public void setShowcode(String showcode) {
+		this.showcode = showcode;
+	}
+	public int getPlatform_num() {
+		return platform_num;
+	}
+	public void setPlatform_num(int platform_num) {
+		this.platform_num = platform_num;
+	}
+	public String getOsturl() {
+		return osturl;
+	}
+	public void setOsturl(String osturl) {
+		this.osturl = osturl;
+	}
+	public String getSinger() {
+		return singer;
+	}
+	public void setSinger(String singer) {
+		this.singer = singer;
+	}
+	public int getPno() {
+		return pno;
+	}
+	public void setPno(int pno) {
+		this.pno = pno;
+	}
+	public int getOnecnt() {
+		return onecnt;
+	}
+	public void setOnecnt(int onecnt) {
+		this.onecnt = onecnt;
+	}
 	public Date getWrite_date() {
 		return write_date;
 	}
 	public void setWrite_date(Date write_date) {
 		this.write_date = write_date;
 	}
-	
 	
 	public int getUser_no() {
 		return user_no;
@@ -241,17 +291,21 @@ public class MovieVO {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+
 	@Override
 	public String toString() {
-		return "MovieVO : mno=" + mno + ", year=" + year + ", hour=" + hour + ", platform1=" + platform1 + ", platform2="
+		return "MovieVO mno=" + mno + ", year=" + year + ", hour=" + hour + ", platform1=" + platform1 + ", platform2="
 				+ platform2 + ", platform3=" + platform3 + ", rating=" + rating + ", posno=" + posno + ", gmno=" + gmno
 				+ ", gnum=" + gnum + ", mnum=" + mnum + ", gno=" + gno + ", startCont=" + startCont + ", endCont="
 				+ endCont + ", hno=" + hno + ", movie_num=" + movie_num + ", member_num=" + member_num + ", one_no="
-				+ one_no + ", cnt=" + cnt + ", user_no=" + user_no + ", title=" + title + ", director=" + director
-				+ ", actor1=" + actor1 + ", actor2=" + actor2 + ", actor3=" + actor3 + ", genre=" + genre + ", plot="
-				+ plot + ", music=" + music + ", url=" + url + ", age_grade=" + age_grade + ", savename=" + savename
-				+ ", dir=" + dir + ", name=" + name + ", user_id=" + user_id + ", content=" + content + ", write_date="
-				+ write_date + ", page=" + page;
+				+ one_no + ", cnt=" + cnt + ", user_no=" + user_no + ", onecnt=" + onecnt + ", pno=" + pno
+				+ ", platform_num=" + platform_num + ", title=" + title + ", director=" + director + ", actor1="
+				+ actor1 + ", actor2=" + actor2 + ", actor3=" + actor3 + ", genre=" + genre + ", plot=" + plot
+				+ ", music=" + music + ", url=" + url + ", age_grade=" + age_grade + ", savename=" + savename + ", dir="
+				+ dir + ", name=" + name + ", user_id=" + user_id + ", content=" + content + ", singer=" + singer
+				+ ", osturl=" + osturl + ", showcode=" + showcode + ", show=" + show + ", write_date=" + write_date
+				+ ", page=" + page;
 	}
 	
 }

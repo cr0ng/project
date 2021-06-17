@@ -39,6 +39,9 @@
 	.change {
 		color: #FF0000	
 	}
+	.apoint {
+		cursor: pointer;
+	}
 </style>
 <script type="text/javascript">
 
@@ -77,7 +80,7 @@ $(document).ready(function(){
 	});
 	
 	$('#outbtn').click(function(){
-		$(location).attr('href','http://localhost/project/member/logout.proj');
+		$(location).attr('href','/project/member/logout.proj');
 	});
 	
 	// var arr = ${JDATA};
@@ -91,18 +94,28 @@ $(document).ready(function(){
 
 	$('.fa-heart').click(function(){
 		var el = $(this);
-		var mno = $(this).parent().prev().attr('id');
+		var mno = $(this).attr('id').substring(1);
+		var scode = $(this).prev().val();
+		alert(scode);
 		$.ajax({
-			url: "/project/heartProc.proj",
+			url: "/project/movie/addHeartProc.proj",
 			type: 'POST',
 			dataType: 'json',
 			data: {
-				mno: mno
+				mno: mno,
+				user_id : '${SID}',
+				showcode: scode
 			},
 			success: function(obj){
 				var result = obj.result;
+				
 				if(result == 'OK'){
-					$(el).addClass('change');
+					if(scode == 'Y'){
+						$(el).prev().val('N');
+					} else if(scode == 'N' || scode == 'E'){
+						$(el).prev().val('Y');
+					} 
+					$(el).toggleClass('change w3-text-red');
 				} else {
 					alert('### 처리에 실패했습니다. ####');
 				}
@@ -206,7 +219,7 @@ $(document).ready(function(){
 								<h4 class="widget_title" style="color: #2d2d2d;">장르</h4>
 								<ul class="list cat-list">
 					<c:forEach var="data" items="${GLIST}">
-									<li><a href="#" class="inblock w150 w3-text-grey gbtn" id="gno${data.gno}">
+									<li><a class="inblock w150 w3-text-grey gbtn" id="gno${data.gno}">
 											<span>${data.name} [ ${data.cnt} ]</span>
 									</a></li>
 					</c:forEach>
@@ -217,7 +230,7 @@ $(document).ready(function(){
             <div class="container">
                
                 <div class="row">
-               <c:forEach var="data" items="${LIST}">
+               <c:forEach var="data" items="${HLIST}">
                     <div class=" col-lg-4 col-md-4 col-sm-8">
 	                     <div class="blog_details">
 		                    <a class="d-inline-block mbtn" href="#" id="${data.mno}">
@@ -225,8 +238,19 @@ $(document).ready(function(){
 			                    <h2 class="blog-head" style="color: #2d2d2d;">${data.title}</h2>
 		                     </a>
 	                        <ul class="blog-info-link">
-					         	<li><a href="#"><div class="fa fa-heart j${data.mno}"></div> 찜하기</a></li>
-					         	<li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
+	           <c:if test="${data.showcode ne 'Y'}">
+					         	<li><a class="apoint">
+					         		<input type="hidden" value="${data.showcode}">
+					         		<div class="fa fa-heart" id="j${data.mno}" ></div>
+					         	 찜하기</a></li>
+			   </c:if>
+	           <c:if test="${data.showcode eq 'Y' }">
+					         	<li><a>
+					         		<input type="hidden" value="${data.showcode}">
+					         		<div class="fa fa-heart w3-text-red" id="j${data.mno}" ></div>
+					         	 찜하기</a></li>
+			   </c:if>
+					         	<li><a href="#"><i class="fa fa-comments" id="${CNT}"></i> ${CNT}Comments</a></li>
 					       	</ul>
 	                   	 </div>
                      </div>

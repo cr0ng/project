@@ -52,33 +52,30 @@ public class MovieDao {
 		return sqlSession.selectList("moSQL.genreMovieDetail", moVO);
 	}
 	
-	// 회원번호로 찜한 영화 번호 추출
-	public List heartMovieNUM(int member_num) {
-		return sqlSession.selectList("moSQL.heartMovieNUM", member_num);
-	}
-	
-	// 회원아이디로로 찜한 영화 번호 추출
+	// 회원 아이디에 따른 찜한 영화보기처리함수
 	public List heartMovieID(MovieVO moVO) {
 		return sqlSession.selectList("moSQL.heartMovieID", moVO);
 	}
-	/*
-	//
-	public int getMovieLike(MovieVO moVO) {
-		return sqlSession.selectOne("moSQL.getMovieLike", moVO);
+	
+	// 찜한 영화와 안한 영화리스트 조회전담처리함수
+	public MovieVO heartAllMovies(MovieVO moVO) {
+		return sqlSession.selectOne("moSQL.heartAllMovies", moVO);
 	}
-	//
-	public void insertMovieLike(MovieVO moVO) {
-		sqlSession.insert("moSQL.insertMovieLike", moVO);
+	
+	// 찜하기 기능 영화 리스트 조회 전담처리함수
+	public List getHeartList(MovieVO moVO) {
+		return sqlSession.selectList("moSQL.getHeartList", moVO);
 	}
-	//
-	public void deleteMovieLike(MovieVO moVO) {
-		sqlSession.delete("moSQL.deleteMovieLike", moVO);
+	
+	// 찜 등록 처리 전담함수
+	public int addHeart(MovieVO moVO) {
+		return sqlSession.insert("moSQL.addHeart", moVO);
 	}
-	//
-	public void updateMovieLike(int movie_num) {
-		sqlSession.update("moSQL.updateMovieLike", movie_num);
+	// 찜하기 업데이트 처리 전담함수
+	public int updateHeart(MovieVO moVO) {
+		return sqlSession.update("moSQL.updateHeart", moVO);
 	}
-	*/
+	
 	// 리뷰 게시글 리스트 조회 전담처리함수
 	public List getReviewList(int mno) {
 		return sqlSession.selectList("moSQL.reviewMOList", mno);
@@ -87,7 +84,10 @@ public class MovieDao {
 	public int getReviewCount(String user_id) {
 		return sqlSession.selectOne("moSQL.getReviewCount", user_id);
 	}
-	
+	// 리뷰 수 조회 전담 처리함수
+	public int getReviewCnt(int movie_num) {
+		return sqlSession.selectOne("moSQL.getReviewCnt", movie_num);
+	}
 	// 작성자 정보 조회 전담 처리함수
 	public MovieVO writerInfo(String user_id) {
 		return sqlSession.selectOne("moSQL.writerInfo", user_id);
@@ -108,4 +108,23 @@ public class MovieDao {
 		return sqlSession.update("moSQL.editProc", moVO);
 	}
 	
+	// 플랫폼 별 영화 조회 질의명령 
+	public List platform1(int mno) {
+		return sqlSession.selectList("moSQL.platform1", mno);
+	}
+	
+	// 플랫폼 별 영화 조회 질의명령 
+	public List platform2(int mno) {
+		return sqlSession.selectList("moSQL.platform2", mno);
+	}
+	
+	// 플랫폼 별 영화 조회 질의명령 
+	public List platform3(int mno) {
+		return sqlSession.selectList("moSQL.platform3", mno);
+	}
+	
+	// 영화 ost 조회 질의명령
+	public List ost(int mno) {
+		return sqlSession.selectList("moSQL.ost", mno);
+	}
 }

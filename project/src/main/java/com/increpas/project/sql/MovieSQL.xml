@@ -120,23 +120,15 @@
 		    rno BETWEEN #{startCont} AND #{endCont}
 	</select>
 	
-	<!-- 회원번호에 따른 찜한 영화 보기질의명령 -->
-	<select id="heartMovieNUM" resultType="int" parameterType="int">
-		SELECT
-		    movie_num mono
-		FROM
-		    heart
-		WHERE
-		    member_num = 100001
-	</select>
-	
 	<!-- 회원아이디에 따른 찜한 영화 보기질의명령 -->
-	<select id="heartMovieID" resultType="int" parameterType="moVO">
+	<select id="heartMovieID" resultType="moVO" parameterType="moVO">
 		SELECT
-		    movie_num mno
+		    movie_num mno, title
 		FROM
-		    heart 
+		    heart, movie
 		WHERE
+		    movie_num = mno
+		    AND
 		    member_num = (
 		                    SELECT
 		                        user_no
@@ -145,7 +137,110 @@
 		                    WHERE
 		                        user_id = #{user_id}
 		                )
+		   AND 
+		   mno = #{mno}
 	</select>
+	
+	<!-- 찜한 영화와 안한 것의 리스트 보기질의명령 -->
+	<select id="heartAllMovies" resultType="moVO" parameterType="moVO">
+		SELECT
+		    NVL(isShow, 'E') showcode
+		FROM
+		    movie, heart
+		WHERE
+		    movie_num(+) = mno
+		    AND
+		    mno = #{mno}
+	</select>
+	
+	<!-- 찜하기 기능 영화 리스트 조회 질의명령  -->
+	<select id="getHeartList" resultType="moVO" parameterType="moVO">
+		SELECT
+		    rno, mno, posno, title, showcode
+		FROM
+		    (
+		        SELECT
+		            ROWNUM rno, mno, title, posno, showcode
+		        FROM
+		            (
+		                SELECT
+		                    mno, title, posno, NVL(show, 'E') showcode
+		                FROM
+		                    movie m, poster p, 
+		                    (
+		                        SELECT
+		                            movie_num, h.isShow show
+		                        FROM
+		                            heart h, member
+		                        WHERE
+		                            member_num = user_no
+		                            AND user_id = #{user_id}
+		                    ) jj
+		                WHERE
+		                    mno = mnum
+		                    AND movie_num(+) = mno
+		            )
+		    )
+		WHERE
+		    rno BETWEEN #{startCont} AND #{endCont}
+	</select>
+	
+	<!-- 영화별 좋아요 개수 조회 질의명령 -->
+	<select id="heartCount" resultType="int" parameterType="moVO">
+		SELECT
+		    count(*)
+		FROM
+		    heart
+		WHERE
+		    movie_num = #{movie_num}
+	</select>
+	
+	<!-- 찜하기 기능 질의명령 -->
+	<insert id="addHeart" parameterType="moVO">
+		<selectKey keyProperty="hno" resultType="int" order="BEFORE">
+			SELECT
+			    NVL(MAX(hno) + 1, 100001)
+			FROM
+			    heart
+		</selectKey>
+		INSERT INTO
+		    heart(hno, movie_num, member_num)
+		VALUES(
+		    #{hno}, #{mno},
+		    (
+		        SELECT
+		            user_no
+		        FROM
+		            member
+		        WHERE   
+		            user_id = #{user_id}
+		    )
+		)
+	</insert>
+	
+	<update id="updateHeart" parameterType="moVO">
+		UPDATE
+		    heart
+		SET
+		   <if test='showcode eq "N"'>
+		    isShow = 'Y'
+		   </if>
+		   <if test='showcode eq "Y"'>
+		    isShow = 'N'
+		   </if>
+		WHERE
+		    member_num = (
+		                    SELECT
+		                        user_no
+		                    FROM
+		                        member
+		                    WHERE
+		                        user_id = #{user_id}
+		                 )
+		    AND 
+		    movie_num = #{mno}
+	</update>
+	
 	<select id="allList" resultType="moVO">
 		SELECT
 		    one_no, user_no, content, mno, title, write_date
@@ -175,6 +270,16 @@
 		                        user_id = #{user_id}
 		                )
 	</select>
+	<!-- 영화별 리뷰 수 조회 질의명령 -->
+	<select id="getReviewCnt" resultType="int" parameterType="int">
+		SELECT
+		    COUNT(one_comment.one_no) onecnt
+		FROM
+		    one_comment
+		WHERE
+		    movie_num = #{movie_num}
+	</select>
+	
 	
 	<!-- 작성자 정보 조회 질의명령 -->
 	<select id="writerInfo" resultType="moVO" parameterType="string">
@@ -207,12 +312,13 @@
 	<!-- 영화에 따른 리뷰 조회 질의명령 -->
 	<select id="reviewMOList" resultType="moVO" parameterType="int">
 		SELECT
-		    one_no, content, member_num, movie_num, write_date
+		    one_no, content, member_num, movie_num, write_date, user_id
 		FROM
-		    one_comment, movie
+		    one_comment, movie, member
 		WHERE
 		    movie_num = mno
 		    AND movie_num = #{mno}
+		    AND member_num = user_no
 	</select>
 	
 	<!-- 리뷰 등록 질의명령 -->
@@ -260,17 +366,57 @@
 	<update id="editProc" parameterType="moVO">
 		UPDATE
 		    one_comment
-		<set>
-				content = #{content}
-		</set>
+		SET
+			content = #{content}
 		WHERE
-		    member_num = (
-		                    SELECT
-		                        user_no
-		                    FROM
-		                        member
-		                    WHERE
-		                        user_id = #{user_id}
-		                 )
+		    one_no = #{one_no}
 	</update>
+	
+	<!-- 플랫폼1 별 영화 조회 질의명령  -->
+	<select id="platform1" resultType="moVO" parameterType="int">
+		SELECT
+		    pno, title, name
+		FROM
+		    movie, platform
+		WHERE
+		    platform1 = pno
+		    AND 
+		    mno = #{mno}
+	</select>
+	
+	<!-- 플랫폼2 별 영화 조회 질의명령  -->
+	<select id="platform2" resultType="moVO" parameterType="int">
+		SELECT
+		    pno, title, name
+		FROM
+		    movie, platform
+		WHERE
+		    platform2 = pno
+		    AND
+		    mno = #{mno}
+	</select>
+	
+	<!-- 플랫폼3 별 영화 조회 질의명령  -->
+	<select id="platform3" resultType="moVO" parameterType="int">
+		SELECT
+		    pno, title, name 
+		FROM
+		    movie, platform 
+		WHERE
+		    platform3 = pno
+		    AND 
+		    mno = #{mno}
+	</select>
+	
+	<!-- 영화 ost 조회 질의명령 -->
+	<select id="ost" resultType="moVO" parameterType="int">
+		SELECT
+		    platform_num, osturl, title, singer
+		FROM
+		    ost, platform
+		WHERE
+		    platform_num = pno
+		    AND 
+		    movie_num = #{mno}
+	</select>
 </mapper>
