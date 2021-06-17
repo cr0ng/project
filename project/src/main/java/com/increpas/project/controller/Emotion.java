@@ -89,21 +89,32 @@ public class Emotion {
 		  int mno = moVO.getMno();
 		  eVO.setEmno(mno);
 		  
-		  int cnt = eDao.movieEmoCnt(eVO);
-		  if(cnt == 1) {
+		  int cnt1 = eDao.movieEmoCnt(eVO);
+		  int cnt = moDao.getReviewCnt(moVO.getMno());
+		  if(cnt1 == 1) {
 		
 			MovieVO data = moDao.movieDetail(moVO.getMno());
-			List rlist = moDao.getReviewList(moVO.getMno());
+			List<MovieVO> rlist = moDao.getReviewList(moVO.getMno());
 			List list = moDao.genreMovieDetail(moVO);
 			List glist = moDao.genreList();
+			List p1list = moDao.platform1(moVO.getMno());
+			List p2list = moDao.platform2(moVO.getMno());
+			List p3list = moDao.platform3(moVO.getMno());
+			List ost = moDao.ost(moVO.getMno());
 			
 			mv.addObject("DATA", data);
 			mv.addObject("RLIST", rlist);
 			
 			mv.addObject("GLIST", glist);
+			mv.addObject("P1LIST", p1list);
+			mv.addObject("P2LIST", p2list);
+			mv.addObject("P3LIST", p3list);
+			mv.addObject("OST", ost);
 			mv.addObject("LIST", list);
 
 			mv.addObject("GNO", moVO.getGnum());
+			mv.addObject("CNT", cnt);
+
 			mv.setViewName("movie/movieDetail");
 		  } 
 		  return mv;

@@ -213,7 +213,7 @@ public class Movie {
 			mv.setView(rv);
 			return mv;
 		}
-		
+		moVO.setUser_id(sid);
 		int cnt = moDao.addReview(moVO);
 		if(cnt == 1) {
 			rv.setUrl("/project/movie/movieDetail.proj?mno="+moVO.getMno());
