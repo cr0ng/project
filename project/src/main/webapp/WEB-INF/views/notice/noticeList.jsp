@@ -60,6 +60,10 @@
 			$('#frm').submit();
 		});
 		
+		$('#outbtn').click(function(){
+			$(location).attr('href','/project/member/logout.proj');
+		});
+		
 	});
 	</script>
 </head>
