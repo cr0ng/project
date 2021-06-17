@@ -7,8 +7,8 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.increpas</groupId>
-	<artifactId>cls2</artifactId>
-	<name>cls2</name>
+	<artifactId>project</artifactId>
+	<name>project</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>

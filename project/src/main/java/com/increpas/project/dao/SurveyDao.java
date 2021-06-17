@@ -50,11 +50,11 @@ public class SurveyDao {
 	
 	// 설문응답 추가 전담 처리함수
 	public int insertAnswer(SurveyVO suVO) {
-		return sqlSession.insert("sSQL.addAnswer", suVO);
+		return sqlSession.insert("suSQL.addAnswer", suVO);
 	}
 	
 	// 설문 응답 결과 조회 처리함수
 	public List getExResult(SurveyVO suVO) {
-		return sqlSession.selectList("sSQL.resultEx", suVO);
+		return sqlSession.selectList("suSQL.resultEx", suVO);
 	}
 }

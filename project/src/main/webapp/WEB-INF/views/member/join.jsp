@@ -17,7 +17,6 @@
     <title> Itcha</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="site.webmanifest">
     <link rel="shortcut icon" type="image/x-icon" href="/project/assets/img/favicon.ico">
     <link rel="stylesheet" type="text/css" href="/project/css/w3.css">
 	<link rel="stylesheet" type="text/css" href="/project/css/user.css">
