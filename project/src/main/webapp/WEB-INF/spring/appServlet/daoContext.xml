@@ -14,4 +14,6 @@
 	<bean id="mDao" class="com.increpas.project.dao.MemberDao" />
 	<bean id="eDao" class="com.increpas.project.dao.EmotionDao" />
 	<bean id="sDao" class="com.increpas.project.dao.SearchDao" />
+	<bean id="suDao" class="com.increpas.project.dao.SurveyDao" />
+	<bean id="nDao" class="com.increpas.project.dao.NoticeDao" />
 </beans>
