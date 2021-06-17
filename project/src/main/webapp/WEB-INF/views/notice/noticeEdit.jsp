@@ -74,7 +74,7 @@
 		});
 		
 		$('#nbtn').click(function(){
-			$(location).attr('href', 'http://localhost/project/notice/noticeList.proj');
+			$(location).attr('href', '/project/notice/noticeList.proj');
 		});
 		
 		$('#rbtn').click(function(){
@@ -235,7 +235,7 @@
                     <div class="row d-flex align-items-center">
                         <div class="col-xl-12 ">
                             <div class="footer-copy-right text-center">
-                                <p>3조 곽채원 김유진 최태현 윤건우 신현식</p>
+                                <p>3조 곽채원 김유진 최태현 윤건우</p>
                               </div>
                           </div>
                       </div>

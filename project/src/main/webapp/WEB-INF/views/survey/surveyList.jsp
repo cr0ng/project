@@ -40,7 +40,6 @@
 			
 			$('#sino').val(tno);
 			$('#title').val(title);
-//			alert('tno : ' + tno);
 			// 폼태그 전송하고
 			$('#frm').submit();
 		});
@@ -158,7 +157,7 @@
                     <div class="row d-flex align-items-center">
                         <div class="col-xl-12 ">
                             <div class="footer-copy-right text-center">
-                                <p>3조 곽채원 김유진 최태현 윤건우 신현식</p>
+                                <p>3조 곽채원 김유진 최태현 윤건우</p>
                               </div>
                           </div>
                       </div>

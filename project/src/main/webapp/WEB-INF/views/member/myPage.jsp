@@ -50,7 +50,7 @@
 	$(document).ready(function(){
 		
 		$('#outbtn').click(function(){
-			$(location).attr('href','http://localhost/project/member/logout.proj');
+			$(location).attr('href','/project/member/logout.proj');
 		});
 		$('.hbtn').click(function(){
 			location.href='';
@@ -61,7 +61,7 @@
 		});
 		
 		$('#mbtn').click(function(){
-			$(location).attr('href', 'http://localhost/project/member/editInfo.proj');
+			$(location).attr('href', '/project/member/editInfo.proj');
 		});
 	})
 

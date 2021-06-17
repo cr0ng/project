@@ -133,7 +133,7 @@
 		});
 		
 		$('#mbtn').click(function(){
-			$(location).attr('href', 'http://localhost/project/member/myPage.proj');
+			$(location).attr('href', '/project/member/myPage.proj');
 		});
 		
 	})

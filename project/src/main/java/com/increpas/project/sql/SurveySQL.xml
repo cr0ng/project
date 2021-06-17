@@ -2,10 +2,10 @@
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="sSQL">
+<mapper namespace="suSQL">
 	
 	<!-- 현재 진행중인 설문조사 리스트 조회 질의명령 -->
-	<select id="getList" resultType="sVO">
+	<select id="getList" resultType="suVO">
 		SELECT
 			sino, title, enddate
 		FROM
@@ -25,7 +25,7 @@
 	</select>
 	
 	<!-- 설문문항 리스트 조회 질의명령 -->
-	<select id="questList" resultType="sVO" parameterType="int">
+	<select id="questList" resultType="suVO" parameterType="int">
 		SELECT
 			sqno qno, sqbody body, sq_sino sino, sqgroup
 		FROM
@@ -38,7 +38,7 @@
 	</select>
 	
 	<!-- 로그인 회원 설문 참여여부 조회 질의명령 -->
-	<select id="answerCount" resultType="int" parameterType="sVO">
+	<select id="answerCount" resultType="int" parameterType="suVO">
 		SELECT
 			count(*)
 		FROM
@@ -65,7 +65,7 @@
 	</select>
 	
 	<!-- 문항보기 리스트 조회 질의명령 -->
-	<select id="exList" resultType="sVO" parameterType="int">
+	<select id="exList" resultType="suVO" parameterType="int">
 		SELECT
 			sqno qno, sqbody ex, exno, sq_sino sino, sqgroup
 		FROM
@@ -78,7 +78,7 @@
 	</select>
 	
 	<!-- 설문응답 질의명령 -->
-	<insert id="addAnswer" parameterType="sVO">
+	<insert id="addAnswer" parameterType="suVO">
 		INSERT INTO
 			survey(sno, smno, srv_qno)
 		VALUES(
@@ -100,7 +100,7 @@
 	</insert>
 	
 	<!-- 설문 응답 결과 조회 질의명령 -->
-	<select id="resultEx" resultType="sVO" parameterType="sVO">
+	<select id="resultEx" resultType="suVO" parameterType="suVO">
 		SELECT
 		    sqno qno, exno, sqbody ex, NVL(cnt, 0) cnt, total totalCnt, ROUND(NVL(cnt, 0) / total * 100, 2) per
 		FROM

@@ -25,36 +25,36 @@ public class SurveyDao {
 	
 	// 현재 진행중인 설문조사 리스트 조회 전담 처리함수
 	public List getList() {
-		return sqlSession.selectList("sSQL.getList");
+		return sqlSession.selectList("suSQL.getList");
 	}
 	
 	// 진행중인 설문조사 갯수 조회 전담 처리함수
 	public int getCount() {
-		return sqlSession.selectOne("sSQL.getCount");
+		return sqlSession.selectOne("suSQL.getCount");
 	}
 	
 	// 설문문항 리스트 조회 전담 처리함수
 	public List questList(int sino) {
-		return sqlSession.selectList("sSQL.questList", sino);
+		return sqlSession.selectList("suSQL.questList", sino);
 	}
 	
 	// 로그인 회원 설문 참여 카운트 조회 처리함수
-	public int answerCnt(SurveyVO sVO) {
-		return sqlSession.selectOne("sSQL.answerCount", sVO);
+	public int answerCnt(SurveyVO suVO) {
+		return sqlSession.selectOne("suSQL.answerCount", suVO);
 	}
 	
 	// 설문보기 리스트 조회 전담 처리 함수
 	public List exList(int qno) {
-		return sqlSession.selectList("sSQL.exList", qno);
+		return sqlSession.selectList("suSQL.exList", qno);
 	}
 	
 	// 설문응답 추가 전담 처리함수
-	public int insertAnswer(SurveyVO sVO) {
-		return sqlSession.insert("sSQL.addAnswer", sVO);
+	public int insertAnswer(SurveyVO suVO) {
+		return sqlSession.insert("sSQL.addAnswer", suVO);
 	}
 	
 	// 설문 응답 결과 조회 처리함수
-	public List getExResult(SurveyVO sVO) {
-		return sqlSession.selectList("sSQL.resultEx", sVO);
+	public List getExResult(SurveyVO suVO) {
+		return sqlSession.selectList("sSQL.resultEx", suVO);
 	}
 }

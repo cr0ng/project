@@ -11,23 +11,22 @@ import com.increpas.project.vo.SurveyVO;
 
 public class SurveyService {
 	@Autowired
-	SurveyDao sDao;
+	SurveyDao suDao;
 	
 	// 설문응답 추가 서비스 함수
 	@Transactional
-	public void addSrvyService(SurveyVO sVO, RedirectView rv, HttpSession session) {
+	public void addSrvyService(SurveyVO suVO, RedirectView rv, HttpSession session) {
 		// 할일
 		// 데이터
 		rv.setUrl("/project/survey/survey.proj");
 		String sid = (String) session.getAttribute("SID");
-		sVO.setId(sid);
-		int[] arr = sVO.getQnolist();
+		suVO.setId(sid);
+		int[] arr = suVO.getQnolist();
 		for(int i = 0; i < arr.length; i++) {
 			// 문항번호 채우고
-			sVO.setQno(arr[i]);
+			suVO.setQno(arr[i]);
 			// 리스트에
-			System.out.println("######### " + sVO.getUser_id());
-			sDao.insertAnswer(sVO);
+			suDao.insertAnswer(suVO);
 		}
 		rv.setUrl("/project/survey/surveyList.proj");
 	}

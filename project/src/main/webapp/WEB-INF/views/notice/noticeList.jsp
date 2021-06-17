@@ -50,7 +50,6 @@
 		
 		$('.list').click(function(){
 			// 선택된 태그의 아이디값에서 두번째 자리에서부터 마지막까지 자르고
-			// 예 ] id="l100001"	==> 100001
 			var tno = $(this).attr('id').substring(1);
 			// 추출한 글번호를 폼태그의 입력태그에 셋팅해주고
 			$('#notice_no').val(tno);
@@ -221,7 +220,7 @@
                     <div class="row d-flex align-items-center">
                         <div class="col-xl-12 ">
                             <div class="footer-copy-right text-center">
-                                <p>3조 곽채원 김유진 최태현 윤건우 신현식</p>
+                                <p>3조 곽채원 김유진 최태현 윤건우</p>
                               </div>
                           </div>
                       </div>
