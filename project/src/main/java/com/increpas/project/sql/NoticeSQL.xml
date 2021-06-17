@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="nSQL">
+	<!-- 총 게시글 수 조회 질의명령 -->
+	<select id="totalCnt" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			notice
+		WHERE
+			isShow = 'Y'
+	</select>
+	
+	<!-- 게시글 리스트 조회 질의명령 -->
+	<select id="noticeList" resultType="nVO" parameterType="page">
+		SELECT
+		    rno, notice_no, nickname, notice_title, mno, content, reg_date, hit
+		FROM
+		    (
+		    SELECT
+		        ROWNUM rno, notice_no, nickname, notice_title, mno, content, reg_date, hit
+		    FROM
+		        (
+			        SELECT
+			            notice_no, nickname, notice_title, mno, content, reg_date, hit
+			        FROM
+			            member m, notice n
+			        WHERE
+			            n.isShow = 'Y'
+			            AND user_no = mno
+			        ORDER BY
+			            reg_date DESC
+		        )
+		    )
+		WHERE
+		    rno BETWEEN #{startCont} AND #{endCont}
+	</select>
+	
+	<!-- 게시글 등록 조회 질의명령 -->
+	<insert id="noticeWrite" parameterType="nVO">
+		<selectKey keyProperty="notice_no" resultType="int" order="BEFORE">
+			SELECT
+				NVL(MAX(notice_no) + 1, 100001)
+			FROM
+				notice
+		</selectKey>
+		INSERT INTO
+			notice(notice_no, notice_title, content, mno)
+		VALUES(
+			#{notice_no}, #{notice_title}, #{content},
+			(
+				SELECT
+					user_no
+				FROM
+					member m
+				WHERE
+					user_id = 'admin'
+			)
+		)
+	</insert>
+	
+	<!-- 게시글 상세보기 질의명령 -->
+	<select id="noticeDetail" resultType="nVO" parameterType="int">
+		SELECT
+		    notice_no, mno, user_id, nickname, notice_title, content, reg_date, hit
+		FROM
+		    member m, notice n
+		WHERE
+		    user_no = mno
+		    AND notice_no = #{notice_no}
+	</select>
+	
+	
+	<!-- 게시글 수정 질의명령 -->
+	<update id="noticeEdit" parameterType="nVO">
+		<selectKey keyProperty="mno" resultType="int" order="BEFORE">
+			SELECT
+				NVL(MAX(mno) + 1, 100001)
+			FROM
+				notice
+		</selectKey>
+		UPDATE
+			notice
+		<set>
+			<if test="notice_title neq null">
+				notice_title = #{notice_title},
+			</if>
+			<if test="content neq null">
+				content = #{content},
+			</if>
+		</set>
+		WHERE
+			notice_no = #{notice_no}
+	</update>
+	
+	<!-- 게시글 삭제 질의명령 -->
+	<update id="noticeDel" parameterType="int">
+		UPDATE
+			notice
+		SET
+			isShow = 'N'
+		WHERE
+			notice_no = #{notice_no}
+	</update>
+		
+	<!-- 조회수 질의명령 -->
+	<update id="hitCount" parameterType="int">
+		UPDATE
+			notice
+		SET
+			hit = hit + 1
+		WHERE
+			notice_no = #{notice_no}
+	</update>
+</mapper>
