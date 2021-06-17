@@ -191,8 +191,8 @@ public class Member {
 	      
 	      int cnt = mDao.addMember(mVO);
 	      if(cnt == 1) {
-	         session.setAttribute("SID", mVO.getUser_id());
-	         rv.setUrl("/project/main.proj");
+	         //session.setAttribute("SID", mVO.getUser_id());
+	         rv.setUrl("/project/member/login.proj");
 	      } else {
 	         rv.setUrl("/project/member/join.proj");
 	      }

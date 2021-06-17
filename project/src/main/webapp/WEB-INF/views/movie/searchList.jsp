@@ -59,7 +59,6 @@ $(document).ready(function(){
    
    $('.mbtn').click(function(){
       var mno = $(this).attr('id');
-      alert('############ ' + mno);
       $('#mno').val(mno);
       $('#frm').attr('action', '/project/movie/movieDetail.proj');
       $('#frm').submit();
@@ -67,7 +66,6 @@ $(document).ready(function(){
    
    $('.gbtn').click(function(){
       var gno = $(this).attr('id').substring(3);
-      alert('############ ' + gno);
       $('#gno').val(gno);
       $('#frm').attr('action', '/project/movie/genreList.proj');
       $('#frm').submit();
