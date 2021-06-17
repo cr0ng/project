@@ -44,7 +44,6 @@ $(document).ready(function(){
 	
 	$('.w3-button.pbtn').click(function(){
 		var pno = $(this).html();
-		alert("nowPage : " + pno);
 		if(pno == 'pre'){
 			pno = '${PAGE.startCont - 1}';
 		} else if(pno == 'next'){
@@ -53,7 +52,6 @@ $(document).ready(function(){
 		
 		// gno 추출
 		var tno = '${GNO}';
-		alert('## tno : ' + tno);
 		$('#nowPage').val(pno);
 		$('#gnum').val(tno);
 		$('#frm').submit();
@@ -61,7 +59,6 @@ $(document).ready(function(){
 	
 	$('.mbtn').click(function(){
 		var mno = $(this).attr('id');
-		alert('############ ' + mno);
 		$('#mno').val(mno);
 		$('#frm').attr('action', '/project/movie/movieDetail.proj');
 		$('#frm').submit();
@@ -123,7 +120,8 @@ $(document).ready(function(){
                                             <ul id="navigation">                                                                                          
                                                 <li><a href="/project/movie/movieList.proj">모든 영화</a></li>
                                                 <li><a href="/project/main.proj">검색</a></li>
-                                                <li><a href="#">공지사항</a></li>
+                                                <li><a href="/project/notice/noticeList.proj">공지사항</a></li>
+                                                <li><a href="/project/survey/surveyList.proj">설문조사</a></li>
                                             </ul>
                                         </nav>
                                     </div>
