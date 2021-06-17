@@ -25,6 +25,8 @@
       <mapper resource="com/increpas/project/sql/MemberSQL.xml" />
       <mapper resource="com/increpas/project/sql/MovieSQL.xml" />
       <mapper resource="com/increpas/project/sql/SearchSQL.xml" />
+      <mapper resource="com/increpas/project/sql/SurveySQL.xml" />
+      <mapper resource="com/increpas/project/sql/NoticeSQL.xml" />
       <mapper resource="com/increpas/project/sql/EmotionSQL.xml" />
    </mappers>
    
